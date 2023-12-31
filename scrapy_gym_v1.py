@@ -18,6 +18,8 @@ from selenium import webdriver # pip install selenium
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 # Asi podemos setear el user-agent en selenium
 chromedriver = "C:/Users/tatan/OneDrive/Documentos/proyecto-webscraping/chromedriver.exe"
@@ -36,9 +38,12 @@ sleep(5)
 # sleep(2) # Esperamos que cargue el boton
 
 # Busco el boton para cargar mas informacion
-boton_div = driver.find_element(By.XPATH, "//div[contains(@class,'col-xs-12')][3]")
+boton_div = WebDriverWait(driver,5).until(
+    EC.presence_of_element_located((By.XPATH, "//div[contains(@class,'col-xs-12')][3]"))
+)
+# boton_div = driver.find_element(By.XPATH, "//div[contains(@class,'col-xs-12')][3]")
 boton_div.click()
-sleep(5)
+sleep(2)
 boton_next = driver.find_element(By.XPATH, "//*[@icon='cp-button-right']")
 boton_next.click()
 sleep(5)
