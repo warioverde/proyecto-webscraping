@@ -47,18 +47,20 @@ sleep(2)
 boton_next = driver.find_element(By.XPATH, "//*[@icon='cp-button-right']")
 boton_next.click()
 sleep(5)
-# for i in range(3): # Voy a darle click en cargar mas 3 veces
-#     try:
-#         # le doy click
-        
-#         # espero que cargue la informacion dinamica
-#         sleep(random.uniform(8.0, 10.0))
-#         # busco el boton nuevamente para darle click en la siguiente iteracion
-#         boton = driver.find_element(By.XPATH, '//button[@data-aut-id="btnLoadMore"]')
-#     except:
-#         # si hay algun error, rompo el lazo. No me complico.
-#         break
+#divs_gym = driver.find_elements(By.XPATH, "//div[@class='tile-item-price']")
 
+divs_gym = driver.find_elements(By.XPATH, "//div[contains(@class,'col-xs-12')]")
+# precios_gym= driver.find_element(By.XPATH, "//div[@class='tile-item-price']//span[@class='tile-item-price-value']")
+# periodos_gym= driver.find_element(By.XPATH, "//div[@class='tile-item-price']//span[@class='tile-item-price-interval']")
+
+contador = 0
+for gym in divs_gym: # Voy a darle click en cargar mas 3 veces
+    print("contador de gym "+ str(contador))
+    precio_gym = driver.find_element(By.XPATH, "//span[@class='tile-item-price-value']").text
+    periodo_gym = driver.find_element(By.XPATH, "//span[@class='tile-item-price-interval']").text
+    print(precio_gym)
+    print(periodo_gym)
+    contador = contador+1
 # Encuentro cual es el XPATH de cada elemento donde esta la informacion que quiero extraer
 # Esto es una LISTA. Por eso el metodo esta en plural
 # autos = driver.find_elements(By.XPATH, '//li[@data-aut-id="itemBox"]')
