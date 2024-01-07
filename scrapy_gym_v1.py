@@ -43,37 +43,35 @@ boton_div = WebDriverWait(driver,5).until(
 )
 # boton_div = driver.find_element(By.XPATH, "//div[contains(@class,'col-xs-12')][3]")
 boton_div.click()
-sleep(2)
-boton_next = driver.find_element(By.XPATH, "//*[@icon='cp-button-right']")
+boton_next = WebDriverWait(driver,5).until(
+    EC.presence_of_element_located((By.XPATH, "//*[@icon='cp-button-right']"))
+)
 boton_next.click()
+boton_next = WebDriverWait(driver,5).until(
+    EC.presence_of_element_located((By.XPATH, "//div[@class='page-footer-lang']"))
+)
 sleep(5)
+boton_next.click()
+boton_next = WebDriverWait(driver,5).until(
+    EC.presence_of_element_located((By.XPATH, "//a[@text='English']"))
+)
+boton_next.click()
+sleep(3)
 #divs_gym = driver.find_elements(By.XPATH, "//div[@class='tile-item-price']")
 
 divs_gym = driver.find_elements(By.XPATH, "//div[contains(@class,'col-xs-12')]")
 # precios_gym= driver.find_element(By.XPATH, "//div[@class='tile-item-price']//span[@class='tile-item-price-value']")
 # periodos_gym= driver.find_element(By.XPATH, "//div[@class='tile-item-price']//span[@class='tile-item-price-interval']")
-
+# divs_gym = driver.find_elements(By.XPATH, "//div[contains(@class,'row')]")
+# print(str(len(divs_gym)))
 contador = 0
-for gym in divs_gym: # Voy a darle click en cargar mas 3 veces
-    print("contador de gym "+ str(contador))
-    precio_gym = driver.find_element(By.XPATH, "//span[@class='tile-item-price-value']").text
-    periodo_gym = driver.find_element(By.XPATH, "//span[@class='tile-item-price-interval']").text
-    print(precio_gym)
-    print(periodo_gym)
-    contador = contador+1
-# Encuentro cual es el XPATH de cada elemento donde esta la informacion que quiero extraer
-# Esto es una LISTA. Por eso el metodo esta en plural
-# autos = driver.find_elements(By.XPATH, '//li[@data-aut-id="itemBox"]')
+for div in divs_gym:
+    # print("DIV--------------------"+str(contador))
+    # print(div.get_attribute('innerHTML'))
+    # print("DIV--------------------"+str(contador))
+    precio_gym = div.find_element('xpath', ".//span[@class='tile-item-price-value']").text
+    periodo_gym = div.find_element('xpath', ".//span[@class='tile-item-price-interval']").text
+    print(precio_gym+"/"+periodo_gym)
+    contador+=1
 
-
-# # Recorro cada uno de los anuncios que he encontrado
-# for auto in autos:
-#     try:
-#         # Por cada anuncio hallo el precio
-#         precio = auto.find_element(By.XPATH, './/span[@data-aut-id="itemPrice"]').text
-#         print (precio)
-#         # Por cada anuncio hallo la descripcion
-#         descripcion = auto.find_element(By.XPATH, './/div[@data-aut-id="itemTitle"]').text
-#         print (descripcion)
-#     except Exception as e:
-#         print ('Anuncio carece de precio o descripcion')
+# Aquí haré que me lo deje en un archivo csv
