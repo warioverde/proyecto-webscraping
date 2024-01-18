@@ -20,6 +20,8 @@ from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import pandas as pd
+import csv
 
 # Asi podemos setear el user-agent en selenium
 chromedriver = "C:/Users/tatan/OneDrive/Documentos/proyecto-webscraping/chromedriver.exe"
@@ -65,6 +67,7 @@ divs_gym = driver.find_elements(By.XPATH, "//div[contains(@class,'col-xs-12')]")
 # divs_gym = driver.find_elements(By.XPATH, "//div[contains(@class,'row')]")
 # print(str(len(divs_gym)))
 contador = 0
+templist = []
 for div in divs_gym:
     # print("DIV--------------------"+str(contador))
     # print(div.get_attribute('innerHTML'))
@@ -72,6 +75,15 @@ for div in divs_gym:
     precio_gym = div.find_element('xpath', ".//span[@class='tile-item-price-value']").text
     periodo_gym = div.find_element('xpath', ".//span[@class='tile-item-price-interval']").text
     print(precio_gym+"/"+periodo_gym)
+    Table_dict = {
+            'periodo': periodo_gym,
+            'precio': precio_gym,
+            'moneda': 'Florin',
+            'gym': 'nr1fitnessbudapest'
+        }
+    templist.append(Table_dict)
+    df = pd.DataFrame(templist)
     contador+=1
 
 # Aquí haré que me lo deje en un archivo csv
+df.to_csv('output.csv')
