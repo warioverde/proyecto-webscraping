@@ -8,6 +8,8 @@ ULTIMA VEZ EDITADO: 14 ENERO 2024
 """
 import requests # pip install requests
 from lxml import html # pip install lxml
+import sys
+import pandas as pd
 
 # USER AGENT PARA PROTEGERNOS DE BANEOS
 headers = {
@@ -26,9 +28,34 @@ parser = html.fromstring(respuesta.content) # Uso .content para poder codificar 
 
 # EXTRACCION DE TODOS LOS MESES POR XPATH
 meses = parser.xpath("//div[contains(@class,'ttbase-pricing-table')]//h4/text()")
+
 for mes in meses:
   print(mes)
 # EXTRACCION DE TODOS LOS PRECIOS POR XPATH
 precios = parser.xpath("//div[contains(@class,'ttbase-pricing-table')]//span[contains(@class,'price')]/text()")
 for precio in precios:
   print(precio)
+
+if len(meses) != len(precio):
+  print("Error: meses y precios no coinciden en cantidad de registros")
+  sys.exit(0)
+
+templist = []
+for i in range(len(precio)):
+  Table_dict = {
+            'periodo': meses[i],
+            'precio': precios[i],
+            'moneda': 'Euro',
+            'gym': 'fitnessclub247'
+        }
+  templist.append(Table_dict)
+  df = pd.DataFrame(templist)
+
+# Aquí haré que me lo deje en un archivo csv
+df.to_csv('output.csv')
+
+# Tengo que hacerme cargo de gestionar escribir csv
+
+
+
+
