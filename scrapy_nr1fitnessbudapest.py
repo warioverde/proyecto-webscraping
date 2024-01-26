@@ -22,7 +22,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import pandas as pd
 import csv
-
+import os
 # Asi podemos setear el user-agent en selenium
 chromedriver = "C:/Users/tatan/OneDrive/Documentos/proyecto-webscraping/chromedriver.exe"
 
@@ -86,4 +86,10 @@ for div in divs_gym:
     contador+=1
 
 # Aquí haré que me lo deje en un archivo csv
-df.to_csv('output.csv')
+ruta_del_archivo = 'output.csv'
+if os.path.exists(ruta_del_archivo):
+  print("El archivo ya existe, agregando resultados al final")
+  df.to_csv('output.csv', mode='a', header=False, index=False)
+else:
+  print("El archivo no existe, creando archivo")
+  df.to_csv('output.csv', mode='w', index=False)

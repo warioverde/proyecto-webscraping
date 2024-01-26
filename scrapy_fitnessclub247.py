@@ -10,6 +10,7 @@ import requests # pip install requests
 from lxml import html # pip install lxml
 import sys
 import pandas as pd
+import os
 
 # USER AGENT PARA PROTEGERNOS DE BANEOS
 headers = {
@@ -52,9 +53,17 @@ for i in range(len(precio)):
   df = pd.DataFrame(templist)
 
 # Aquí haré que me lo deje en un archivo csv
-df.to_csv('output.csv')
 
 # Tengo que hacerme cargo de gestionar escribir csv
+ruta_del_archivo = 'output.csv'
+if os.path.exists(ruta_del_archivo):
+  print("El archivo ya existe, agregando resultados al final")
+  df.to_csv('output.csv', mode='a', header=False, index=False)
+else:
+  print("El archivo no existe, creando archivo")
+  df.to_csv('output.csv', mode='w', index=False)
+# si el archivo existe, hacer con appen, si no existe con w
+
 
 
 
