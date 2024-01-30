@@ -37,7 +37,7 @@ precios = parser.xpath("//div[contains(@class,'ttbase-pricing-table')]//span[con
 for precio in precios:
   print(precio)
 
-if len(meses) != len(precio):
+if len(meses) != len(precios):
   print("Error: meses y precios no coinciden en cantidad de registros")
   sys.exit(0)
 
@@ -46,7 +46,7 @@ for i in range(len(precio)):
   Table_dict = {
             'periodo': meses[i],
             'precio': precios[i],
-            'moneda': 'Euro',
+            'moneda': 'Florin',
             'gym': 'fitnessclub247'
         }
   templist.append(Table_dict)
