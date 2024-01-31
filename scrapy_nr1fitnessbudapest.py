@@ -1,16 +1,3 @@
-"""
-OBJETIVO: 
-    - Extraer el precio y el titulo de los anuncios en la pagina de OLX autos.
-    - Aprender a realizar extracciones que requieran una accion de click para cargar datos.
-    - Introducirnos a la logica de Selenium
-CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 14 SEPTIEMBRE 2023
-"""
-
-#####
-### ATENCION: OLX necesita que le demos permisos de geolocalizacion al navegador de selenium para que nos muestre los datos
-### Esto lo haremos una unica vez en la primer corrida del programa. Este problema es mas comun en usuarios de MAC
-#####
 import random
 from time import sleep
 from selenium.webdriver.common.by import By
@@ -35,7 +22,7 @@ s = Service(chromedriver)
 driver = webdriver.Chrome(service=s, options=option)
 # Voy a la pagina que quiero
 driver.get('https://nr1fitnessbudapest.perfectgym.pl/ClientPortal2/#/Registration')
-sleep(5)
+sleep(8)
 # driver.refresh() # Solucion de un bug extraño en Windows en donde los anuncios solo cargan al hacerle refresh a la página
 # sleep(2) # Esperamos que cargue el boton
 
