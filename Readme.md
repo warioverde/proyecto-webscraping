@@ -1,5 +1,5 @@
 # Intro 
-Este es un proyecto de webscraping para extraer información de distintos gimnasios. Por ahora solo manejo un poco de Beautiful Soup, Request y Scrapy.
+Este es un proyecto de webscraping para extraer información de distintos gimnasios.
 
 # Pensamientos y Aprendizajes
 
