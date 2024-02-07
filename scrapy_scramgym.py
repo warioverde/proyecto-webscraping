@@ -25,7 +25,8 @@ driver.get('https://scramgym.com/member-portal/gym-registration/')
 sleep(3)
 # driver.refresh() # Solucion de un bug extraño en Windows en donde los anuncios solo cargan al hacerle refresh a la página
 # sleep(2) # Esperamos que cargue el boton
-
+driver.execute_script("""window.scrollTo(0, 1000)""")
+sleep(5)
 # Busco el boton para cargar mas informacion
 boton_div = WebDriverWait(driver,5).until(
     EC.presence_of_element_located((By.XPATH, "//div[contains(@class,'signup-box')]//a[@data-divisionid='15']"))
@@ -44,14 +45,14 @@ for div in divs_gym:
     # print("DIV--------------------"+str(contador))
     # print(div.get_attribute('innerHTML'))
     # print("DIV--------------------"+str(contador))
-    precio_gym = div.find_element('xpath', ".//span[@class='tile-item-price-value']").text
-    periodo_gym = div.find_element('xpath', ".//span[@class='tile-item-price-interval']").text
+    precio_gym = div.find_element('xpath', "./span[contains(@class,'membership-price')]/h2").text
+    periodo_gym = div.find_element('xpath', "./span[contains(@class,'membership-details')]/h4").text
     print(precio_gym+"/"+periodo_gym)
     Table_dict = {
             'periodo': periodo_gym,
             'precio': precio_gym,
-            'moneda': 'Florin',
-            'gym': 'nr1fitnessbudapest'
+            'moneda': 'Euro',
+            'gym': 'scramgym'
         }
     templist.append(Table_dict)
     df = pd.DataFrame(templist)
